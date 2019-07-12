@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">EmptyTest</string>
+    <string name="n">获取到摇动角度</string>
+    <string name="zdy">自定义色值</string>
+</resources>
