@@ -18,14 +18,16 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.login);
         uname = (EditText) findViewById(R.id.uname);
         login = (Button) findViewById(R.id.login);
+
         login.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 final String str1 = uname.getText().toString();
                 if (str1.equals("username")) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("ip",str1);
                     startActivity(intent);
                 } else {
-                    uname.setText("失败");
+                    uname.setHint("失败");
                 }
             }
         });
