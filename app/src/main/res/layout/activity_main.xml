@@ -3,29 +3,9 @@
     xmlns:kongqw="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:padding="35dp">
 
-    <!--<com.example.emptytest.RockerView-->
-    <!--android:id="@+id/rockerView_left"-->
-    <!--android:layout_width="200dp"-->
-    <!--android:layout_height="200dp"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--kongqw:areaBackground="@drawable/default_area_bg"-->
-    <!--kongqw:rockerBackground="@drawable/default_rocker_bg"-->
-    <!--kongqw:rockerRadius="30dp" />-->
 
-    <!--<TextView-->
-    <!--android:id="@+id/log_left"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_above="@id/rockerView_left" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/tip_left"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_above="@id/log_left"-->
-    <!--android:text="支持8个方向的摇杆\n自定义Shape" />-->
 
     <com.example.emptytest.RockerView
         android:id="@+id/rockerView_right"

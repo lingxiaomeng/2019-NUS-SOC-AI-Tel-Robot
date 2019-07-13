@@ -20,6 +20,8 @@ import android.view.View;
 import com.example.emptytest.Logger;
 import com.example.emptytest.R.*;
 
+import static java.lang.Math.PI;
+
 /**
  * Created by kqw on 2016/8/30.
  * 摇杆控件
@@ -70,7 +72,7 @@ public class RockerView extends View {
         initAttribute(context, attrs);
 
         if (isInEditMode()) {
-            Logger.i(TAG, "RockerView: isInEditMode");
+            //Logger.i(TAG, "RockerView: isInEditMode");
         }
 
         // 移动区域画笔
@@ -148,7 +150,7 @@ public class RockerView extends View {
         // 摇杆半径
         mRockerRadius = typedArray.getDimensionPixelOffset(R.styleable.RockerView_rockerRadius, DEFAULT_ROCKER_RADIUS);
 
-        Logger.i(TAG, "initAttribute: mAreaBackground = " + areaBackground + "   mRockerBackground = " + rockerBackground + "  mRockerRadius = " + mRockerRadius);
+        //Logger.i(TAG, "initAttribute: mAreaBackground = " + areaBackground + "   mRockerBackground = " + rockerBackground + "  mRockerRadius = " + mRockerRadius);
         typedArray.recycle();
     }
 
@@ -173,11 +175,11 @@ public class RockerView extends View {
         } else {
             measureHeight = DEFAULT_SIZE;
         }
-        Logger.i(TAG, "onMeasure: --------------------------------------");
-        Logger.i(TAG, "onMeasure: widthMeasureSpec = " + widthMeasureSpec + " heightMeasureSpec = " + heightMeasureSpec);
-        Logger.i(TAG, "onMeasure: widthMode = " + widthMode + "  measureWidth = " + widthSize);
-        Logger.i(TAG, "onMeasure: heightMode = " + heightMode + "  measureHeight = " + widthSize);
-        Logger.i(TAG, "onMeasure: measureWidth = " + measureWidth + " measureHeight = " + measureHeight);
+//        Logger.i(TAG, "onMeasure: --------------------------------------");
+//        Logger.i(TAG, "onMeasure: widthMeasureSpec = " + widthMeasureSpec + " heightMeasureSpec = " + heightMeasureSpec);
+//        Logger.i(TAG, "onMeasure: widthMode = " + widthMode + "  measureWidth = " + widthSize);
+//        Logger.i(TAG, "onMeasure: heightMode = " + heightMode + "  measureHeight = " + widthSize);
+//        Logger.i(TAG, "onMeasure: measureWidth = " + measureWidth + " measureHeight = " + measureHeight);
         setMeasuredDimension(measureWidth, measureHeight);
     }
 
@@ -252,7 +254,7 @@ public class RockerView extends View {
                 float upX = event.getX();
                 float upY = event.getY();
                 moveRocker(mCenterPoint.x, mCenterPoint.y);
-                Logger.i(TAG, "onTouchEvent: 抬起位置 : x = " + upX + " y = " + upY);
+                // Logger.i(TAG, "onTouchEvent: 抬起位置 : x = " + upX + " y = " + upY);
                 break;
         }
         return true;
@@ -278,11 +280,38 @@ public class RockerView extends View {
         double radian = Math.acos(lenX / lenXY) * (touchPoint.y < centerPoint.y ? -1 : 1);
         // 计算角度
         double angle = radian2Angle(radian);
-
-        // 回调 返回参数
-        callBack(angle, lenXY > regionRadius ? regionRadius : lenXY);
-
-        Logger.i(TAG, "getRockerPositionPoint: 角度 :" + angle + "距离：" + lenXY);
+        // Logger.i(TAG, lenX + " " + lenY + " " + lenXY + " " + radian);
+//        double lx = lenX > regionRadius * (lenX / lenXY) ? regionRadius * (lenX / lenXY) : lenX;
+//        double ly = lenY > regionRadius ? regionRadius : lenY;
+        double lspeed = 0;
+        double rspeed = 0;
+        double lxy = lenXY >= regionRadius ? regionRadius : lenXY;
+        double absangle = 0;
+        if (lenX <= 0 && lenY <= 0) {
+            absangle = 360 - angle;
+            rspeed = lxy / regionRadius * 255;
+            lspeed = rspeed - 4 * rspeed * absangle / 180;
+        } else if (lenX > 0 && lenY < 0) {
+            absangle = angle;
+            lspeed = lxy / regionRadius * 255;
+            rspeed = lspeed - 4 * lspeed * absangle / 180;
+        } else if (lenX > 0 && lenY > 0) {
+            absangle = 180 - angle;
+            rspeed = lxy / regionRadius * 255;
+            lspeed = rspeed - 4 * rspeed * absangle / 180;
+            lspeed *= -1;
+            rspeed *= -1;
+        } else if (lenX < 0) {
+            absangle = angle - 180;
+            lspeed = lxy / regionRadius * 255;
+            rspeed = lspeed - 4 * lspeed * absangle / 180;
+            lspeed *= -1;
+            rspeed *= -1;
+        }
+        Logger.i(TAG, lspeed + " " + rspeed);
+        //
+        callBack((int) lspeed, (int) rspeed);
+        //Logger.i(TAG, "getRockerPositionPoint: 角度 :" + angle + "距离：" + lenXY);
         if (lenXY + rockerRadius <= regionRadius) { // 触摸位置在可活动范围内
             return touchPoint;
         } else { // 触摸位置在可活动范围以外
@@ -301,7 +330,7 @@ public class RockerView extends View {
      */
     private void moveRocker(float x, float y) {
         mRockerPosition.set((int) x, (int) y);
-        Logger.i(TAG, "onTouchEvent: 移动位置 : x = " + mRockerPosition.x + " y = " + mRockerPosition.y);
+        // Logger.i(TAG, "onTouchEvent: 移动位置 : x = " + mRockerPosition.x + " y = " + mRockerPosition.y);
         invalidate();
     }
 
@@ -312,7 +341,7 @@ public class RockerView extends View {
      * @return 角度[0, 360)
      */
     private double radian2Angle(double radian) {
-        double tmp = Math.round(radian / Math.PI * 180) + 90;
+        double tmp = Math.round(radian / PI * 180) + 90;
         return tmp >= 0 ? tmp : 360 + tmp;
     }
 
@@ -351,12 +380,11 @@ public class RockerView extends View {
      * 回调
      * 返回参数
      *
-     * @param angle 摇动角度
+     * @param rspeed speed1
      */
-    private void callBack(double angle, double distance) {
+    private void callBack(int lspeed, int rspeed) {
         if (null != mOnAngleChangeListener) {
-            mOnAngleChangeListener.angle(angle);
-            mOnAngleChangeListener.distance((int) (distance));
+            mOnAngleChangeListener.sendmessage(lspeed, rspeed);
         }
     }
 
@@ -427,7 +455,6 @@ public class RockerView extends View {
     }
 
 
-
     /**
      * 摇动角度的监听接口
      */
@@ -435,14 +462,7 @@ public class RockerView extends View {
         // 开始
         void onStart();
 
-        void distance(int distance);
-
-        /**
-         * 摇杆角度变化
-         *
-         * @param angle 角度[0,360)
-         */
-        void angle(double angle);
+        void sendmessage(int lspeed, int rspeed);
 
         // 结束
         void onFinish();
