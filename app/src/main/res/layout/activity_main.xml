@@ -3,9 +3,21 @@
     xmlns:kongqw="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="35dp">
+    android:padding="10dp"
+    android:screenOrientation="landscape">
 
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="499dp"
+        android:layout_height="401dp" />
 
+    <TextView
+        android:id="@+id/senor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/buttons"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/web_view" />
 
     <com.example.emptytest.RockerView
         android:id="@+id/rockerView_right"
@@ -13,32 +25,59 @@
         android:layout_height="200dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="35dp"
         kongqw:areaBackground="@drawable/area_bg"
         kongqw:rockerBackground="@mipmap/view_small"
         kongqw:rockerRadius="20dp" />
 
-    <TextView
-        android:id="@+id/log_right"
+    <LinearLayout
+        android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/web_view"
         android:layout_above="@id/rockerView_right"
-        android:layout_alignParentEnd="true" />
+        >
 
-    <TextView
-        android:id="@+id/distance"
+        <TextView
+            android:id="@+id/log_right"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/tip_right"
-        android:layout_alignParentEnd="true" />
+        android:layout_above="@id/message"
+        android:layout_toEndOf="@id/web_view">
 
-    <TextView
-        android:id="@+id/tip_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/log_right"
-        android:layout_alignParentEnd="true"
-        android:text="@string/n" />
+        <Button
+            android:id="@+id/tphoto"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
 
+            android:text="Photo" />
 
+        <Button
+            android:id="@+id/refresh"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+
+            android:text="刷新" />
+
+        <Button
+            android:id="@+id/stop"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+
+            android:text="STOP" />
+
+    </LinearLayout>
 
 </RelativeLayout>
