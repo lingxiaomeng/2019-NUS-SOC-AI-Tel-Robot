@@ -1,47 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:kongqw="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:padding="0dp"
     android:screenOrientation="landscape">
 
     <WebView
         android:id="@+id/web_view"
-        android:layout_width="499dp"
-        android:layout_height="401dp" />
+        android:layout_width="285dp"
+        android:layout_height="285dp"
+        android:layout_x="20dp"
+        android:layout_y="75dp" />
 
-    <TextView
-        android:id="@+id/senor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/buttons"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@id/web_view" />
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="285dp"
+        android:layout_height="285dp"
+        android:layout_x="305dp"
+        android:layout_y="75dp"
+        />
+
 
     <com.example.emptytest.RockerView
         android:id="@+id/rockerView_right"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="35dp"
+        android:layout_x="580dp"
+        android:layout_y="120dp"
         kongqw:areaBackground="@drawable/area_bg"
         kongqw:rockerBackground="@mipmap/view_small"
         kongqw:rockerRadius="20dp" />
+
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="500dp"
+        android:layout_height="30dp"
+        android:layout_y="10dp" />
+
+    <TextView
+        android:id="@+id/senor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#E91E63"
+        android:layout_x="400dp"
+        android:layout_y="50dp" />
 
     <LinearLayout
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/web_view"
-        android:layout_above="@id/rockerView_right"
-        >
+        android:layout_x="500dp"
+        android:layout_y="10dp"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/log_right"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -54,8 +72,8 @@
         android:id="@+id/buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/message"
-        android:layout_toEndOf="@id/web_view">
+        android:layout_x="585dp"
+        android:layout_y="65dp">
 
         <Button
             android:id="@+id/tphoto"
@@ -75,9 +93,9 @@
             android:id="@+id/stop"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-
+            android:textColor="#FF5722"
             android:text="STOP" />
 
     </LinearLayout>
 
-</RelativeLayout>
+</AbsoluteLayout>

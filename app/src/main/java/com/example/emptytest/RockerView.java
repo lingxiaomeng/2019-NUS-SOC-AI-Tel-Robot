@@ -290,20 +290,24 @@ public class RockerView extends View {
         if (lenX <= 0 && lenY <= 0) {
             absangle = 360 - angle;
             rspeed = lxy / regionRadius * 255;
+            rspeed = (int) (((double) (155 * rspeed) / (double) (255)) + 100);
             lspeed = rspeed - 4 * rspeed * absangle / 180;
         } else if (lenX > 0 && lenY < 0) {
             absangle = angle;
             lspeed = lxy / regionRadius * 255;
+            lspeed = (int) (((double) (155 * lspeed) / (double) (255)) + 100);
             rspeed = lspeed - 4 * lspeed * absangle / 180;
         } else if (lenX > 0 && lenY > 0) {
             absangle = 180 - angle;
             rspeed = lxy / regionRadius * 255;
+            rspeed = (int) (((double) (155 * rspeed) / (double) (255)) + 100);
             lspeed = rspeed - 4 * rspeed * absangle / 180;
             lspeed *= -1;
             rspeed *= -1;
         } else if (lenX < 0) {
             absangle = angle - 180;
             lspeed = lxy / regionRadius * 255;
+            lspeed = (int) (((double) (155 * lspeed) / (double) (255)) + 100);
             rspeed = lspeed - 4 * lspeed * absangle / 180;
             lspeed *= -1;
             rspeed *= -1;
