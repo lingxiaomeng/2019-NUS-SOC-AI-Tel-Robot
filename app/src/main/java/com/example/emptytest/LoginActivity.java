@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.emptytest.ternsorflow.Classifier;
+import com.example.emptytest.ternsorflow.YoloV3Classifier;
 import com.example.emptytest.yoloClassifier.*;
 
 import org.opencv.android.OpenCVLoader;
@@ -46,12 +48,12 @@ public class LoginActivity extends Activity {
             uname.setHint("faild");
         }
     };
-    //    private static final String INPUT_NAME = "input_1";
-//    private static final String OUTPUT_NAME = "conv2d_10/BiasAdd,conv2d_13/BiasAdd";
-    private static final String INPUT_NAME = "yolov3-tiny/net1";
-    private static final String OUTPUT_NAME = "yolov3-tiny/convolutional10/BiasAdd,yolov3-tiny/convolutional13/BiasAdd";
+    private static final String INPUT_NAME = "input_1";
+    private static final String OUTPUT_NAME = "conv2d_10/BiasAdd,conv2d_13/BiasAdd";
+//    private static final String INPUT_NAME = "yolov3-tiny/net1";
+//    private static final String OUTPUT_NAME = "yolov3-tiny/convolutional10/BiasAdd,yolov3-tiny/convolutional13/BiasAdd";
 
-    private static final String MODEL_FILE = "ultimate_yolov3-tiny";
+    private static final String MODEL_FILE = "final320";
     private static final int[] TINY_YOLO_BLOCK_SIZE = {32, 16};
 
     private static String[] PERMISSIONS_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -64,6 +66,22 @@ public class LoginActivity extends Activity {
             for (int i = 0; i < permissions.length; i++) {
                 Log.i("MainActivity", "申请的权限为：" + permissions[i] + ",申请结果：" + grantResults[i]);
             }
+        }
+    }
+
+    private Classifier initClassifier() {
+        try {
+            return YoloV3Classifier.create(
+                    super.getAssets(),
+                    MODEL_FILE,
+                    416,
+                    INPUT_NAME,
+                    OUTPUT_NAME,
+                    TINY_YOLO_BLOCK_SIZE, 0
+            );
+
+        } catch (Exception e) {
+            throw new RuntimeException("classifier init problem", e);
         }
     }
 
@@ -88,12 +106,7 @@ public class LoginActivity extends Activity {
 //                    MODEL_FILE, LABEL_FILE, 320, INPUT_NAME, OUTPUT_NAME);
 //        }
         if (yolov3_classifier == null) {
-            try {
-                yolov3_classifier = new TinyClassifier(getAssets());
-                System.out.println("load succeed");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            yolov3_classifier = initClassifier();
         }
         login.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {

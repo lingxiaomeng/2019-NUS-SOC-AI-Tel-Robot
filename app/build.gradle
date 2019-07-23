@@ -4,7 +4,8 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     aaptOptions {
-        noCompress "pb"  //表示不让aapt压缩的文件后缀
+        noCompress "tflite"  //表示不让aapt压缩的文件后缀
+
     }
     sourceSets {
         main {

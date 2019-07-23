@@ -53,22 +53,17 @@ public class untils {
         return matrix;
     }
 
-    public static Bitmap processBitmap(Bitmap source, int size){
+    public static Bitmap processBitmap(Bitmap bm, int size) {
 
-        int image_height = source.getHeight();
-        int image_width = source.getWidth();
+        int width = bm.getWidth();
+        int height = bm.getHeight();    // 设置想要的大小
 
-        Bitmap croppedBitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+        float scaleWidth = ((float) size) / width;
+        float scaleHeight = ((float) size) / height;    //取得想要缩放的matrix参数
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);    // 得到新的图片
+        Bitmap newbm = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
 
-        Matrix frameToCropTransformations = getTransformationMatrix(image_width,image_height,size,size,0,false);
-        Matrix cropToFrameTransformations = new Matrix();
-        frameToCropTransformations.invert(cropToFrameTransformations);
-
-        final Canvas canvas = new Canvas(croppedBitmap);
-        canvas.drawBitmap(source, frameToCropTransformations, null);
-
-        return croppedBitmap;
-
-
+        return newbm;
     }
 }

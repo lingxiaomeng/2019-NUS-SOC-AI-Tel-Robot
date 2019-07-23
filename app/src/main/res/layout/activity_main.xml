@@ -10,16 +10,15 @@
         android:id="@+id/web_view"
         android:layout_width="285dp"
         android:layout_height="285dp"
-        android:layout_x="20dp"
+        android:layout_x="10dp"
         android:layout_y="75dp" />
 
     <ImageView
         android:id="@+id/imageview"
         android:layout_width="285dp"
         android:layout_height="285dp"
-        android:layout_x="305dp"
-        android:layout_y="75dp"
-        />
+        android:layout_x="295dp"
+        android:layout_y="75dp" />
 
 
     <com.example.emptytest.RockerView
@@ -28,7 +27,7 @@
         android:layout_height="200dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="35dp"
-        android:layout_x="580dp"
+        android:layout_x="590dp"
         android:layout_y="120dp"
         kongqw:areaBackground="@drawable/area_bg"
         kongqw:rockerBackground="@mipmap/view_small"
@@ -72,7 +71,7 @@
         android:id="@+id/buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="585dp"
+        android:layout_x="590dp"
         android:layout_y="65dp">
 
         <Button
@@ -80,7 +79,7 @@
             android:layout_width="75dp"
             android:layout_height="wrap_content"
 
-            android:text="Photo" />
+            android:text="手动" />
 
         <Button
             android:id="@+id/refresh"
